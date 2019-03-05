@@ -1,3 +1,5 @@
-= Source Code Repository for Monitoring, Tuning and Troubleshooting
+= Source Code Repository for Monitoring, Troubleshooting and Tuning
+
+Official course title: **Confluent Advanced Skills for Optimizing Apache Kafka**
 
 Please refer to the **Student Exercise Book** provided to you during the training for further instructions.
