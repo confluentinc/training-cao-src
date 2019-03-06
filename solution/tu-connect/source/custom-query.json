@@ -1,0 +1,18 @@
+{
+    "name": "query-based-ingest",
+    "config": {
+        "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "connection.url": "jdbc:postgresql://postgres:5432/postgres",
+        "connection.user": "postgres",
+        "topic.prefix": "query_credits_and_grants",
+        "mode": "bulk",
+        "query": "SELECT ID, BORROWER, REGION, COUNTRY_CODE, ORIGINAL_PRINCIPAL_AMOUNT, CURRENCY_OF_COMMITMENT FROM credits_and_grants;",
+        "poll.interval.ms" : 3600000,
+        "numeric.mapping": "best_fit",
+        "transforms": "createKey,extractInt",
+        "transforms.createKey.type": "org.apache.kafka.connect.transforms.ValueToKey",
+        "transforms.createKey.fields": "id",
+        "transforms.extractInt.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+        "transforms.extractInt.field": "id"
+    }
+}
