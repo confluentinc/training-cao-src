@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zk1:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zk1
     networks:
       - confluent
@@ -19,7 +19,7 @@ services:
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
   zk2:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zk2
     networks:
       - confluent
@@ -37,7 +37,7 @@ services:
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
   zk3:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zk3
     networks:
       - confluent
@@ -55,7 +55,7 @@ services:
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
   kafka1:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka1
     networks:
       - confluent
@@ -73,7 +73,7 @@ services:
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
   kafka2:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka2
     networks:
       - confluent
@@ -91,7 +91,7 @@ services:
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
   kafka3:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka3
     networks:
       - confluent

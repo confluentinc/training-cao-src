@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zookeeper
     networks:
       - confluent
@@ -10,7 +10,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka-1:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka-1
     networks:
       - confluent
@@ -27,7 +27,7 @@ services:
       - NET_ADMIN
 
   kafka-2:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka-2
     networks:
       - confluent
@@ -44,7 +44,7 @@ services:
       - NET_ADMIN
 
   kafka-3:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka-3
     networks:
       - confluent
@@ -61,7 +61,7 @@ services:
       - NET_ADMIN
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.1
+    image: confluentinc/cp-enterprise-control-center:5.1.2
     hostname: control-center
     restart: always
     networks:
@@ -80,7 +80,7 @@ services:
       CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
 
   base:
-    image: confluentinc/cp-enterprise-kafka:5.1.1
+    image: confluentinc/cp-enterprise-kafka:5.1.2
     hostname: base
     networks:
       - confluent
@@ -89,7 +89,7 @@ services:
     command: /bin/sh
     tty: true
     environment:
-      CLASSPATH: /config/monitoring-interceptors-5.1.1.jar
+      CLASSPATH: /config/monitoring-interceptors-5.1.2.jar
 
 networks:
   confluent:

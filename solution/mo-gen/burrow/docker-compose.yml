@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zookeeper
     networks:
       - confluent
@@ -14,7 +14,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka
     networks:
       - confluent
@@ -35,7 +35,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.1.1"
+    image: "confluentinc/cp-schema-registry:5.1.2"
     hostname: schema-registry
     networks:
       - confluent
@@ -49,7 +49,7 @@ services:
       SCHEMA_REGISTRY_JMX_HOSTNAME: 127.0.0.1
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.1
+    image: confluentinc/cp-enterprise-control-center:5.1.2
     hostname: control-center
     restart: always
     networks:

@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zookeeper
     networks:
       - confluent
@@ -14,7 +14,7 @@ services:
       JMX_PORT: 9998
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka
     networks:
       - confluent
@@ -36,7 +36,7 @@ services:
       JMX_PORT: 9999
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.1.1"
+    image: "confluentinc/cp-schema-registry:5.1.2"
     hostname: schema-registry
     networks:
       - confluent
@@ -46,7 +46,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
   ksql-server:
-    image: "confluentinc/cp-ksql-server:5.1.1"
+    image: "confluentinc/cp-ksql-server:5.1.2"
     hostname: ksql-server
     ports:
       - "8088:8088"
@@ -66,7 +66,7 @@ services:
       KSQL_KSQL_SERVER_UI_ENABLED: "false"
 
   ksql-cli:
-    image: confluentinc/cp-ksql-cli:5.1.1
+    image: confluentinc/cp-ksql-cli:5.1.2
     hostname: ksql-cli
     networks:
       - confluent
@@ -74,7 +74,7 @@ services:
     tty: true
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.1
+    image: confluentinc/cp-enterprise-control-center:5.1.2
     hostname: control-center
     restart: always
     networks:

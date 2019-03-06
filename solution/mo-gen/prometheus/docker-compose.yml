@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zookeeper
     networks:
       - confluent
@@ -15,7 +15,7 @@ services:
       - ZOOKEEPER_SYNC_LIMIT=2
 
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka
     hostname: kafka
     networks:
@@ -59,7 +59,7 @@ services:
       - ./grafana/dashboards:/var/lib/grafana/dashboards
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.1
+    image: confluentinc/cp-enterprise-control-center:5.1.2
     hostname: control-center
     restart: always
     networks:
@@ -82,7 +82,7 @@ services:
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
   base:
-    image: confluentinc/cp-kafka-connect:5.1.1
+    image: confluentinc/cp-kafka-connect:5.1.2
     hostname: base
     entrypoint: /bin/sh
     tty: true

@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zookeeper
     networks:
       - confluent
@@ -10,7 +10,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka
     networks:
       - confluent
@@ -31,7 +31,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.1.1"
+    image: "confluentinc/cp-schema-registry:5.1.2"
     hostname: schema-registry
     networks:
       - confluent
@@ -74,7 +74,7 @@ services:
       CONNECT_REST_HOST_NAME: "connect"
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.1
+    image: confluentinc/cp-enterprise-control-center:5.1.2
     hostname: control-center
     restart: always
     networks:
@@ -94,7 +94,7 @@ services:
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
   
   base:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: base
     entrypoint: /bin/sh
     tty: true

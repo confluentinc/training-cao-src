@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zk-1:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zk-1
     # restart: always
     volumes:
@@ -17,7 +17,7 @@ services:
       - ZOOKEEPER_SERVERS=zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
   
   zk-2:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zk-2
     # restart: always
     volumes:
@@ -33,7 +33,7 @@ services:
       - ZOOKEEPER_SERVERS=zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
   
   zk-3:
-    image: confluentinc/cp-zookeeper:5.1.1
+    image: confluentinc/cp-zookeeper:5.1.2
     hostname: zk-3
     # restart: always
     volumes:
@@ -49,7 +49,7 @@ services:
       - ZOOKEEPER_SERVERS=zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
 
   kafka-1:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka-1
     hostname: kafka-1
     networks:
@@ -67,7 +67,7 @@ services:
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
 
   kafka-2:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka-2
     hostname: kafka-2
     networks:
@@ -85,7 +85,7 @@ services:
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
 
   kafka-3:
-    image: "confluentinc/cp-enterprise-kafka:5.1.1"
+    image: "confluentinc/cp-enterprise-kafka:5.1.2"
     hostname: kafka-3
     hostname: kafka-3
     networks:
@@ -103,7 +103,7 @@ services:
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.1.1"
+    image: "confluentinc/cp-schema-registry:5.1.2"
     hostname: schema-registry
     networks:
       - confluent
@@ -113,7 +113,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
   connect:
-    image: confluentinc/cp-kafka-connect:5.1.1
+    image: confluentinc/cp-kafka-connect:5.1.2
     hostname: connect
     hostname: connect
     ports:
@@ -148,7 +148,7 @@ services:
       CONNECT_REST_HOST_NAME: "connect"
 
   rest-proxy:
-    image: confluentinc/cp-kafka-rest:5.1.1
+    image: confluentinc/cp-kafka-rest:5.1.2
     hostname: rest-proxy
     networks:
       - confluent
@@ -159,7 +159,7 @@ services:
       KAFKA_REST_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
   ksql-server:
-    image: "confluentinc/cp-ksql-server:5.1.1"
+    image: "confluentinc/cp-ksql-server:5.1.2"
     hostname: ksql-server
     ports:
       - "8088:8088"
@@ -179,7 +179,7 @@ services:
       KSQL_KSQL_SERVER_UI_ENABLED: "false"
 
   ksql-cli:
-    image: confluentinc/cp-ksql-cli:5.1.1
+    image: confluentinc/cp-ksql-cli:5.1.2
     hostname: ksql-cli
     networks:
       - confluent
@@ -187,7 +187,7 @@ services:
     tty: true
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.1
+    image: confluentinc/cp-enterprise-control-center:5.1.2
     hostname: control-center
     restart: always
     networks:
@@ -210,7 +210,7 @@ services:
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
   base:
-    image: confluentinc/cp-kafka-connect:5.1.1
+    image: confluentinc/cp-kafka-connect:5.1.2
     hostname: base
     hostname: base
     networks:
@@ -220,7 +220,7 @@ services:
     command: /bin/sh
     tty: true
     environment:
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.1.1.jar
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.1.2.jar
 
 volumes:
   data-zk-1:
