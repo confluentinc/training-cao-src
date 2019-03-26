@@ -8,7 +8,8 @@ Please refer to the **Student Exercise Book** provided to you during the trainin
 
 Clone the code repository with the following command:
 
-```
+[source,subs="verbatim,quotes,attributes"]
+--
 $ git clone --branch {course-tag} \
     https://github.com/confluentinc/training-cao-src.git ~/confluent-cao
-```
+--
