@@ -17,7 +17,7 @@ services:
     networks:
       - confluent
     ports:
-      - "19092:9092"
+      - "19092:19092"
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -39,7 +39,7 @@ services:
     networks:
       - confluent
     ports:
-      - "29092:9092"
+      - "29092:29092"
     environment:
       KAFKA_BROKER_ID: 102
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -61,7 +61,7 @@ services:
     networks:
       - confluent
     ports:
-      - "39092:9092"
+      - "39092:39092"
     environment:
       KAFKA_BROKER_ID: 103
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181

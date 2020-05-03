@@ -60,7 +60,7 @@ services:
     networks:
       - confluent
     ports:
-      - "19092:9092"
+      - "19092:19092"
     volumes:
       - data-kafka-1:/var/lib/kafka/data
     environment:
@@ -82,7 +82,7 @@ services:
     networks:
       - confluent
     ports:
-      - "29092:9092"
+      - "29092:29092"
     volumes:
       - data-kafka-2:/var/lib/kafka/data
     environment:
@@ -104,7 +104,7 @@ services:
     networks:
       - confluent
     ports:
-      - "39092:9092"
+      - "39092:39092"
     volumes:
       - data-kafka-3:/var/lib/kafka/data
     environment:

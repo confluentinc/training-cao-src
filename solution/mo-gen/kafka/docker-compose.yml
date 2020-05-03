@@ -63,7 +63,7 @@ services:
     networks:
       - confluent
     ports:
-      - "19092:9092"
+      - "19092:19092"
       - "7171:7071"
     volumes:
       - ./agent:/agent
@@ -85,7 +85,7 @@ services:
     networks:
       - confluent
     ports:
-      - "29092:9092"
+      - "29092:29092"
       - "7172:7071"
     volumes:
       - ./agent:/agent
@@ -107,7 +107,7 @@ services:
     networks:
       - confluent
     ports:
-      - "39092:9092"
+      - "39092:39092"
       - "7173:7071"
     volumes:
       - ./agent:/agent
