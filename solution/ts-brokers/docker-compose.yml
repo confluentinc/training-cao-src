@@ -1,21 +1,24 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zookeeper
     networks:
       - confluent
+    ports:
+      - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0"
     hostname: kafka
     networks:
       - confluent
     ports:
-      - 9999:9999
+      - "9092:9092"
+      - "9999:9999"
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -31,17 +34,19 @@ services:
       KAFKA_JMX_HOSTNAME: kafka
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.1.2"
+    image: "confluentinc/cp-schema-registry:5.5.0"
     hostname: schema-registry
     networks:
       - confluent
+    ports:
+      - "8081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.2
+    image: confluentinc/cp-enterprise-control-center:5.5.0
     hostname: control-center
     restart: always
     networks:
@@ -61,7 +66,7 @@ services:
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
   
   base:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0"
     hostname: base
     entrypoint: /bin/sh
     tty: true

@@ -1,12 +1,13 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zookeeper
     networks:
       - confluent
     ports:
-      - 9999:9999
+      - "2181:2181"
+      - "9999:9999"
     volumes:
       - ./app:/app
     environment:
@@ -16,12 +17,13 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0"
     hostname: kafka
     networks:
       - confluent
     ports:
-      - 4444:4444
+      - "9092:9092"
+      - "4444:4444"
     volumes:
       - ./app:/app
     environment:

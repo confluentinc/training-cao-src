@@ -1,21 +1,24 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zookeeper
     networks:
       - confluent
+    ports:
+      - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0"
     hostname: kafka
     networks:
       - confluent
     ports:
-      - 9999:9999
+      - "9092:9092"
+      - "9999:9999"
     volumes:
       - ./logging:/logging
     environment:

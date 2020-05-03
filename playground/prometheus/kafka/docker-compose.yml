@@ -1,10 +1,12 @@
 version: "3.5"
 services:
   zk:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zk
     networks:
       - confluent
+    ports:
+      - "2181:2181"
     environment:
       - ZOOKEEPER_SERVER_ID=1
       - ZOOKEEPER_CLIENT_PORT=2181
@@ -13,16 +15,16 @@ services:
       - ZOOKEEPER_SYNC_LIMIT=2
 
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
-    hostname: kafka
+    image: "confluentinc/cp-enterprise-kafka:5.5.0"
     hostname: kafka
     networks:
       - confluent
+    ports:
+      - "9092:9092"
+      - "9999:9999"
     volumes:
       - ./agents:/agents
       - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 9999:9999
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zk:2181
@@ -51,7 +53,7 @@ services:
     networks:
       - confluent
     ports:
-      - 9090:9090/tcp
+      - "9090:9090/tcp"
     volumes:
       - ./prometheus:/etc/prometheus
 
@@ -60,7 +62,7 @@ services:
     networks:
       - confluent
     ports:
-      - 3000:3000/tcp
+      - "3000:3000/tcp"
     volumes:
       - "graf-db:/var/lib/grafana"
 
@@ -76,7 +78,7 @@ services:
 
 
   base:
-    image: confluentinc/cp-kafka-connect:5.1.2
+    image: confluentinc/cp-kafka-connect:5.5.0
     hostname: base
     hostname: base
     entrypoint: /bin/sh

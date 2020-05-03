@@ -1,23 +1,26 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zookeeper
     networks:
       - confluent
+    ports:
+      - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0"
     hostname: kafka
     networks:
       - confluent
+    ports:
+      - "9092:9092"
+      - "9999:9999"
     volumes:
       - ./agents:/agents
-    ports:
-      - 9999:9999
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -36,7 +39,7 @@ services:
     networks:
       - confluent
     ports:
-      - 9090:9090/tcp
+      - "9090:9090/tcp"
     volumes:
       - ./prometheus:/etc/prometheus
 
@@ -46,7 +49,7 @@ services:
     networks:
       - confluent
     ports:
-      - 3000:3000/tcp
+      - "3000:3000/tcp"
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning

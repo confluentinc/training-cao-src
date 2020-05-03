@@ -1,12 +1,13 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zookeeper
     networks:
       - confluent
     ports:
-      - 9998:9998
+      - "2181:2181"
+      - "9998:9998"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -14,12 +15,13 @@ services:
       JMX_PORT: 9998
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0"
     hostname: kafka
     networks:
       - confluent
     ports:
-      - 9999:9999
+      - "9092:9092"
+      - "9999:9999"
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -36,45 +38,50 @@ services:
       JMX_PORT: 9999
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.1.2"
+    image: "confluentinc/cp-schema-registry:5.5.0"
     hostname: schema-registry
     networks:
       - confluent
+    ports:
+      - "8081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
-  ksql-server:
-    image: "confluentinc/cp-ksql-server:5.1.2"
-    hostname: ksql-server
-    ports:
-      - "8088:8088"
+  ksqldb-server:
+    image: "confluentinc/cp-ksqldb-server:5.5.0"
+    hostname: ksqldb-server
     networks:
       - confluent
+    ports:
+      - "8088:8088"
     environment:
       KSQL_CONFIG_DIR: "/etc/ksql"
-      KSQL_LOG4J_OPTS: "-Dlog4j.configuration=file:/etc/ksql/log4j-rolling.properties"
+      KSQL_LOG4J_OPTS: "-Dlog4j.configuration=file:/etc/ksqldb/log4j-rolling.properties"
       KSQL_BOOTSTRAP_SERVERS: "kafka:9092"
-      KSQL_HOST_NAME: ksql-server
+      KSQL_HOST_NAME: ksqldb-server
       KSQL_APPLICATION_ID: "ksql-demo"
       KSQL_LISTENERS: "http://0.0.0.0:8088"
+      # Set the buffer cache to 0 so that the KSQL CLI shows all updates to KTables for learning purposes.
+      # The default is 10 MB, which means records in a KTable are compacted before showing output.
+      # Change cache.max.bytes.buffering and commit.interval.ms to tune this behavior.
       KSQL_CACHE_MAX_BYTES_BUFFERING: 0
       KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
       KSQL_KSQL_SERVER_UI_ENABLED: "false"
 
-  ksql-cli:
-    image: confluentinc/cp-ksql-cli:5.1.2
-    hostname: ksql-cli
+  ksqldb-cli:
+    image: confluentinc/cp-ksqldb-cli:5.5.0
+    hostname: ksqldb-cli
     networks:
       - confluent
     entrypoint: /bin/sh
     tty: true
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.2
+    image: confluentinc/cp-enterprise-control-center:5.5.0
     hostname: control-center
     restart: always
     networks:
@@ -92,7 +99,7 @@ services:
       CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 1
       CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
       CONTROL_CENTER_CONNECT_CLUSTER: "connect:8083"
-      CONTROL_CENTER_KSQL_URL: "http://ksql-server:8088"
+      CONTROL_CENTER_KSQL_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 

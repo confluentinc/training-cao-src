@@ -1,12 +1,13 @@
 version: "3.5"
 services:
   zk1:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zk1
     networks:
       - confluent
     ports:
-      - 7071:7071
+      - "12181:2181"
+      - "7071:7071"
     volumes:
       - ./agent:/agent
     environment:
@@ -19,12 +20,13 @@ services:
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zookeeper.yaml"
 
   zk2:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zk2
     networks:
       - confluent
     ports:
-      - 7072:7071
+      - "22181:2181"
+      - "7072:7071"
     volumes:
       - ./agent:/agent
     environment:
@@ -37,12 +39,13 @@ services:
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zookeeper.yaml"
 
   zk3:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zk3
     networks:
       - confluent
     ports:
-      - 7073:7071
+      - "32181:2181"
+      - "7073:7071"
     volumes:
       - ./agent:/agent
     environment:
@@ -60,7 +63,7 @@ services:
     networks:
       - confluent
     ports:
-      - 9090:9090/tcp
+      - "9090:9090/tcp"
     volumes:
       - ./prometheus:/etc/prometheus
       - ./prometheus/prometheus-cluster.yml:/etc/prometheus/prometheus.yml

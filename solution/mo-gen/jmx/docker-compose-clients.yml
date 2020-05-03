@@ -6,14 +6,14 @@ services:
     networks:
       - confluent
     ports:
-      - 4444:4444
+      - "4444:4444"
   consumer:
     image: cnfltraining/jmx-consumer:1.0
     build: consumer
     networks:
       - confluent
     ports:
-      - 4445:4445
+      - "4445:4445"
 
 networks:
   confluent:

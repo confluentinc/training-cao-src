@@ -1,12 +1,13 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0
     hostname: zookeeper
     networks:
       - confluent
     ports:
-      - 39999:39999
+      - "2181:2181"
+      - "39999:39999"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -14,12 +15,13 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0"
     hostname: kafka
     networks:
       - confluent
     ports:
-      - 49999:49999
+      - "9092:9092"
+      - "49999:49999"
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -35,12 +37,13 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.1.2"
+    image: "confluentinc/cp-schema-registry:5.5.0"
     hostname: schema-registry
     networks:
       - confluent
     ports:
-      - 59999:59999
+      - "8081:8081"
+      - "59999:59999"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
@@ -49,7 +52,7 @@ services:
       SCHEMA_REGISTRY_JMX_HOSTNAME: 127.0.0.1
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.2
+    image: confluentinc/cp-enterprise-control-center:5.5.0
     hostname: control-center
     restart: always
     networks:
@@ -78,7 +81,7 @@ services:
     networks: 
       - confluent
     ports:
-      - 8000:8000
+      - "8000:8000"
 
 networks:
   confluent:
