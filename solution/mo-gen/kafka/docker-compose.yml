@@ -1,8 +1,8 @@
 version: "3.5"
 services:
-  zk1:
+  zk-1:
     image: confluentinc/cp-zookeeper:5.5.0
-    hostname: zk1
+    hostname: zk-1
     networks:
       - confluent
     ports:
@@ -16,12 +16,12 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zk1:2888:3888;zk2:2888:3888;zk3:2888:3888
+      ZOOKEEPER_SERVERS: zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
-  zk2:
+  zk-2:
     image: confluentinc/cp-zookeeper:5.5.0
-    hostname: zk2
+    hostname: zk-2
     networks:
       - confluent
     ports:
@@ -35,12 +35,12 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zk1:2888:3888;zk2:2888:3888;zk3:2888:3888
+      ZOOKEEPER_SERVERS: zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
-  zk3:
+  zk-3:
     image: confluentinc/cp-zookeeper:5.5.0
-    hostname: zk3
+    hostname: zk-3
     networks:
       - confluent
     ports:
@@ -54,12 +54,12 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zk1:2888:3888;zk2:2888:3888;zk3:2888:3888
+      ZOOKEEPER_SERVERS: zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
-  kafka1:
+  kafka-1:
     image: "confluentinc/cp-enterprise-kafka:5.5.0"
-    hostname: kafka1
+    hostname: kafka-1
     networks:
       - confluent
     ports:
@@ -69,7 +69,7 @@ services:
       - ./agent:/agent
     environment:
       KAFKA_BROKER_ID: 101
-      KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
+      KAFKA_ZOOKEEPER_CONNECT: zk-1:2181,zk-2:2181,zk-3:2181
       KAFKA_LISTENERS: DOCKER://kafka-1:9092,HOST://kafka-1:19092
       KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-1:9092,HOST://localhost:19092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
@@ -79,9 +79,9 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
-  kafka2:
+  kafka-2:
     image: "confluentinc/cp-enterprise-kafka:5.5.0"
-    hostname: kafka2
+    hostname: kafka-2
     networks:
       - confluent
     ports:
@@ -91,7 +91,7 @@ services:
       - ./agent:/agent
     environment:
       KAFKA_BROKER_ID: 102
-      KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
+      KAFKA_ZOOKEEPER_CONNECT: zk-1:2181,zk-2:2181,zk-3:2181
       KAFKA_LISTENERS: DOCKER://kafka-2:9092,HOST://kafka-2:29092
       KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-2:9092,HOST://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
@@ -101,9 +101,9 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
 
-  kafka3:
+  kafka-3:
     image: "confluentinc/cp-enterprise-kafka:5.5.0"
-    hostname: kafka3
+    hostname: kafka-3
     networks:
       - confluent
     ports:
@@ -113,7 +113,7 @@ services:
       - ./agent:/agent
     environment:
       KAFKA_BROKER_ID: 103
-      KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
+      KAFKA_ZOOKEEPER_CONNECT: zk-1:2181,zk-2:2181,zk-3:2181
       KAFKA_LISTENERS: DOCKER://kafka-3:9092,HOST://kafka-3:39092
       KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-3:9092,HOST://localhost:39092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT

@@ -2,21 +2,21 @@ global:
   scrape_interval: 10s
   evaluation_interval: 10s
 scrape_configs:
-  - job_name: 'zk1'
+  - job_name: 'zk-1'
     static_configs:
-      - targets: ['zk1:7071']
-  - job_name: 'zk2'
+      - targets: ['zk-1:7071']
+  - job_name: 'zk-2'
     static_configs:
-      - targets: ['zk2:7071']
-  - job_name: 'zk3'
+      - targets: ['zk-2:7071']
+  - job_name: 'zk-3'
     static_configs:
-      - targets: ['zk3:7071']
-  - job_name: 'kafka1'
+      - targets: ['zk-3:7071']
+  - job_name: 'kafka-1'
     static_configs:
-      - targets: ['kafka1:7071']
-  - job_name: 'kafka2'
+      - targets: ['kafka-1:7071']
+  - job_name: 'kafka-2'
     static_configs:
-      - targets: ['kafka2:7071']
-  - job_name: 'kafka3'
+      - targets: ['kafka-2:7071']
+  - job_name: 'kafka-3'
     static_configs:
-      - targets: ['kafka3:7071']
+      - targets: ['kafka-3:7071']
