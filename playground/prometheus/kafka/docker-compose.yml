@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zk:
-    image: confluentinc/cp-zookeeper:5.5.0
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
     hostname: zk
     networks:
       - confluent
@@ -15,7 +15,7 @@ services:
       ZOOKEEPER_SYNC_LIMIT: "2"
 
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
     hostname: kafka
     networks:
       - confluent
@@ -78,7 +78,7 @@ services:
 
 
   base:
-    image: confluentinc/cp-kafka-connect:5.5.0
+    image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
     hostname: base
     hostname: base
     entrypoint: /bin/sh

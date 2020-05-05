@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zk-1:
-    image: confluentinc/cp-zookeeper:5.5.0
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
     hostname: zk-1
     networks:
       - confluent
@@ -20,7 +20,7 @@ services:
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zookeeper.yaml"
 
   zk-2:
-    image: confluentinc/cp-zookeeper:5.5.0
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
     hostname: zk-2
     networks:
       - confluent
@@ -39,7 +39,7 @@ services:
       KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zookeeper.yaml"
 
   zk-3:
-    image: confluentinc/cp-zookeeper:5.5.0
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
     hostname: zk-3
     networks:
       - confluent

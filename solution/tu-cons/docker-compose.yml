@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.5.0
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
     hostname: zookeeper
     networks:
       - confluent
@@ -12,7 +12,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka-1:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
     hostname: kafka-1
     networks:
       - confluent
@@ -34,7 +34,7 @@ services:
       - NET_ADMIN
 
   kafka-2:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
     hostname: kafka-2
     networks:
       - confluent
@@ -56,7 +56,7 @@ services:
       - NET_ADMIN
 
   kafka-3:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
     hostname: kafka-3
     networks:
       - confluent
@@ -78,7 +78,7 @@ services:
       - NET_ADMIN
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.5.0
+    image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
     hostname: control-center
     restart: always
     networks:

@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.5.0
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
     hostname: zookeeper
     networks:
       - confluent
@@ -12,7 +12,7 @@ services:
       - ZOOKEEPER_TICK_TIME=2000
 
   kafka-1:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
     hostname: kafka-1
     networks:
       - confluent
@@ -34,7 +34,7 @@ services:
       - NET_ADMIN
 
   kafka-2:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
     hostname: kafka-2
     networks:
       - confluent
@@ -56,7 +56,7 @@ services:
       - NET_ADMIN
 
   kafka-3:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0"
+    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
     hostname: kafka-3
     networks:
       - confluent
@@ -78,7 +78,7 @@ services:
       - NET_ADMIN
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.5.0"
+    image: "confluentinc/cp-schema-registry:5.5.0-1-ubi8"
     hostname: schema-registry
     networks:
       - confluent
@@ -123,7 +123,7 @@ services:
       CONNECT_REST_HOST_NAME: "connect"
 
   ksqldb-server:
-    image: "confluentinc/cp-ksqldb-server:5.5.0"
+    image: "confluentinc/cp-ksqldb-server:5.5.0-1-ubi8"
     hostname: ksqldb-server
     networks:
       - confluent
@@ -148,7 +148,7 @@ services:
       - NET_ADMIN
 
   ksqldb-cli:
-    image: confluentinc/cp-ksqldb-cli:5.5.0
+    image: confluentinc/cp-ksqldb-cli:5.5.0-1-ubi8
     hostname: ksqldb-cli
     networks:
       - confluent
@@ -156,7 +156,7 @@ services:
     tty: true
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.5.0
+    image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
     hostname: control-center
     restart: always
     networks:
@@ -180,7 +180,7 @@ services:
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
   base:
-    image: confluentinc/cp-kafka-connect:5.5.0
+    image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
     hostname: base
     networks:
       - confluent
