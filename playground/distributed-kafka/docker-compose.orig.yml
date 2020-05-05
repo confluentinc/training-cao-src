@@ -9,14 +9,15 @@ services:
     networks:
       - confluent
     ports:
-      - "12181:2181"
+      - "12181:12181"
     environment:
-      - ZOOKEEPER_SERVER_ID=1
-      - ZOOKEEPER_CLIENT_PORT=2181
-      - ZOOKEEPER_TICK_TIME=2000
-      - ZOOKEEPER_INIT_LIMIT=5
-      - ZOOKEEPER_SYNC_LIMIT=2
-      - ZOOKEEPER_SERVERS=zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: "12181"
+      ZOOKEEPER_TICK_TIME: "2000"
+      ZOOKEEPER_INIT_LIMIT: "5"
+      ZOOKEEPER_SYNC_LIMIT: "2"
+      ZOOKEEPER_SERVERS: "zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888"
+      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=*"
   
   zk-2:
     image: confluentinc/cp-zookeeper:5.5.0
@@ -27,14 +28,15 @@ services:
     networks:
       - confluent
     ports:
-      - "22181:2181"
+      - "22181:22181"
     environment:
-      - ZOOKEEPER_SERVER_ID=2
-      - ZOOKEEPER_CLIENT_PORT=2181
-      - ZOOKEEPER_TICK_TIME=2000
-      - ZOOKEEPER_INIT_LIMIT=5
-      - ZOOKEEPER_SYNC_LIMIT=2
-      - ZOOKEEPER_SERVERS=zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: "22181"
+      ZOOKEEPER_TICK_TIME: "2000"
+      ZOOKEEPER_INIT_LIMIT: "5"
+      ZOOKEEPER_SYNC_LIMIT: "2"
+      ZOOKEEPER_SERVERS: "zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888"
+      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=*"
   
   zk-3:
     image: confluentinc/cp-zookeeper:5.5.0
@@ -45,14 +47,15 @@ services:
     networks:
       - confluent
     ports:
-      - "32181:2181"
+      - "32181:32181"
     environment:
-      - ZOOKEEPER_SERVER_ID=3
-      - ZOOKEEPER_CLIENT_PORT=2181
-      - ZOOKEEPER_TICK_TIME=2000
-      - ZOOKEEPER_INIT_LIMIT=5
-      - ZOOKEEPER_SYNC_LIMIT=2
-      - ZOOKEEPER_SERVERS=zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: "32181"
+      ZOOKEEPER_TICK_TIME: "2000"
+      ZOOKEEPER_INIT_LIMIT: "5"
+      ZOOKEEPER_SYNC_LIMIT: "2"
+      ZOOKEEPER_SERVERS: "zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888"
+      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=*"
 
   kafka-1:
     image: "confluentinc/cp-enterprise-kafka:5.5.0"
