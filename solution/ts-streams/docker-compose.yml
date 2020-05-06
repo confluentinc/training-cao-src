@@ -94,7 +94,7 @@ services:
     hostname: connect
     depends_on:
       - zookeeper
-      - kafka
+      - kafka-1
       - schema-registry
     networks:
       - confluent
