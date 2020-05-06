@@ -62,6 +62,8 @@ services:
     hostname: kafka-3
     networks:
       - confluent
+    volumes:
+      - ./config:/config
     ports:
       - "39092:39092"
     environment:
