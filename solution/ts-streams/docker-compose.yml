@@ -130,6 +130,8 @@ services:
     hostname: ksqldb-server
     networks:
       - confluent
+    volumes:
+      - ./config:/config
     ports:
       - "8088:8088"
     environment:

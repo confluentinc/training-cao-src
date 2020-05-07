@@ -16,6 +16,8 @@ services:
     hostname: kafka-1
     networks:
       - confluent
+    volumes:
+      - ./config:/config
     ports:
       - "19092:19092"
     environment:
@@ -38,6 +40,8 @@ services:
     hostname: kafka-2
     networks:
       - confluent
+    volumes:
+      - ./config:/config
     ports:
       - "29092:29092"
     environment:
@@ -60,6 +64,8 @@ services:
     hostname: kafka-3
     networks:
       - confluent
+    volumes:
+      - ./config:/config
     ports:
       - "39092:39092"
     environment:
