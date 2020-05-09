@@ -8,4 +8,4 @@ kafka-console-consumer \
     --from-beginning \
     --topic test-topic-1 \
     --consumer-property "interceptor.classes=${NS}.MonitoringConsumerInterceptor" \
-    --consumer-property "client.id=single-client-$1"
+    --consumer-property "client.id=consumer-$1"
