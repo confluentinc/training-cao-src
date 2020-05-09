@@ -101,7 +101,7 @@ services:
     ports:
       - "8083:8083"
     environment:
-      CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
+      CONNECT_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092"
       CONNECT_REST_ADVERTISED_HOST_NAME: connect
       CONNECT_REST_PORT: 8083
       CONNECT_GROUP_ID: compose-connect-group
@@ -130,6 +130,8 @@ services:
     hostname: ksqldb-server
     networks:
       - confluent
+    volumes:
+      - ./config:/config
     ports:
       - "8088:8088"
     environment:
