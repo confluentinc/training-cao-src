@@ -34,7 +34,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_JMX_PORT: 9999
       KAFKA_JMX_HOSTNAME: 127.0.0.1
-      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.10.jar=7071:/agents/kafka.yml"
+      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.12.jar=7071:/agents/kafka.yml"
 
   prometheus:
     image: prom/prometheus:v2.17.0
