@@ -17,7 +17,7 @@ services:
       ZOOKEEPER_INIT_LIMIT: "5"
       ZOOKEEPER_SYNC_LIMIT: "2"
       ZOOKEEPER_SERVERS: "zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888"
-      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zookeeper.yaml"
+      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/agent/zookeeper.yaml"
 
   zk-2:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
@@ -36,7 +36,7 @@ services:
       ZOOKEEPER_INIT_LIMIT: "5"
       ZOOKEEPER_SYNC_LIMIT: "2"
       ZOOKEEPER_SERVERS: "zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888"
-      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zookeeper.yaml"
+      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/agent/zookeeper.yaml"
 
   zk-3:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
@@ -55,10 +55,10 @@ services:
       ZOOKEEPER_INIT_LIMIT: "5"
       ZOOKEEPER_SYNC_LIMIT: "2"
       ZOOKEEPER_SERVERS: "zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888"
-      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zookeeper.yaml"
+      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/agent/zookeeper.yaml"
 
   prometheus:
-    image: prom/prometheus:v2.5.0
+    image: prom/prometheus:v2.17.0
     networks:
       - confluent
     ports:
@@ -67,7 +67,7 @@ services:
       - ./prometheus:/etc/prometheus
 
   grafana:
-    image: grafana/grafana:3.0.1
+    image: grafana/grafana:6.7.2
     networks:
       - confluent
     ports:
