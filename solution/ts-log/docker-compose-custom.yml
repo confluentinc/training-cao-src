@@ -2,6 +2,7 @@ version: "3.5"
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container-name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
@@ -13,6 +14,7 @@ services:
   
   kafka:
     image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    container-name: kafka
     hostname: kafka
     networks:
       - confluent
@@ -29,6 +31,15 @@ services:
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_LOG4J_OPTS: "-Dlog4j.configuration=file:/logging/log4j.properties"
+
+  tools:
+    image: cnfltraining/training-tools:5.5
+    container_name: tools
+    hostname: tools
+    networks:
+      - confluent
+    entrypoint: /bin/sh
+    tty: true
 
 networks:
   confluent:

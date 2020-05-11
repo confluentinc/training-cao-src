@@ -2,6 +2,7 @@ version: "3.5"
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container-name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
@@ -13,6 +14,7 @@ services:
 
   kafka-1:
     image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    container-name: kafka-1
     hostname: kafka-1
     networks:
       - confluent
@@ -85,6 +87,7 @@ services:
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    container-name: control-center
     hostname: control-center
     restart: always
     networks:
@@ -101,6 +104,15 @@ services:
       CONTROL_CENTER_METRICS_TOPIC_REPLICATION: 3
       CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 1
       CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
+
+  tools:
+    image: cnfltraining/training-tools:5.5
+    container_name: tools
+    hostname: tools
+    networks:
+      - confluent
+    entrypoint: /bin/sh
+    tty: true
 
 networks:
   confluent:

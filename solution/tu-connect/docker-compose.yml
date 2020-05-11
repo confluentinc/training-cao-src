@@ -2,6 +2,7 @@ version: "3.5"
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container-name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
@@ -13,6 +14,7 @@ services:
   
   kafka:
     image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    container-name: kafka
     hostname: kafka
     networks:
       - confluent
@@ -34,6 +36,7 @@ services:
 
   schema-registry:
     image: "confluentinc/cp-schema-registry:5.5.0-1-ubi8"
+    container-name: schema-registry
     hostname: schema-registry
     networks:
       - confluent
@@ -46,6 +49,7 @@ services:
 
   ksqldb-server:
     image: "confluentinc/cp-ksqldb-server:5.5.0-1-ubi8"
+    container-name: ksqldb-server
     hostname: ksqldb-server
     networks:
       - confluent
@@ -71,6 +75,7 @@ services:
 
   ksqldb-cli:
     image: confluentinc/cp-ksqldb-cli:5.5.0-1-ubi8
+    container-name: ksqldb-cli
     hostname: ksqldb-cli
     networks:
       - confluent
@@ -79,6 +84,7 @@ services:
 
   connect:
     image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
+    container-name: connect
     hostname: connect
     restart: always
     networks:
@@ -111,6 +117,7 @@ services:
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    container-name: control-center
     hostname: control-center
     restart: always
     networks:
@@ -134,6 +141,7 @@ services:
 
   postgres:
     image: postgres:11.2-alpine
+    container-name: postgres
     hostname: postgres
     networks:
       - confluent
@@ -142,6 +150,15 @@ services:
     volumes:
       - ${PWD}/pg-data:/var/lib/postgresql/data
       - ${PWD}/source:/source
+
+  tools:
+    image: cnfltraining/training-tools:5.5
+    container_name: tools
+    hostname: tools
+    networks:
+      - confluent
+    entrypoint: /bin/sh
+    tty: true
 
 networks:
   confluent:

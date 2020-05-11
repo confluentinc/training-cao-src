@@ -2,6 +2,7 @@ version: "3.5"
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container-name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
@@ -16,6 +17,7 @@ services:
 
   kafka:
     image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    container-name: kafka
     hostname: kafka
     networks:
       - confluent
@@ -38,6 +40,8 @@ services:
 
   prometheus:
     image: prom/prometheus:v2.17.0
+    container-name: prometheus
+    container-name: prometheus
     hostname: prometheus
     networks:
       - confluent
@@ -59,6 +63,7 @@ services:
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    container-name: control-center
     hostname: control-center
     restart: always
     networks:
@@ -80,13 +85,15 @@ services:
       CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
-  base:
-    image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
-    hostname: base
-    entrypoint: /bin/sh
-    tty: true
+  tools:
+    image: cnfltraining/training-tools:5.5
+    container_name: tools
+    hostname: tools
     networks:
       - confluent
+    entrypoint: /bin/sh
+    tty: true
+    environment:
 
 volumes:
   grafana-storage:

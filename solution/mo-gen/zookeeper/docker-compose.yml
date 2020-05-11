@@ -2,7 +2,8 @@ version: "3.5"
 services:
   zk-1:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    hostname: zk-1
+    container-name: zk-2
+hostname: zk-1
     networks:
       - confluent
     ports:
@@ -21,6 +22,7 @@ services:
 
   zk-2:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container-name: zk-2
     hostname: zk-2
     networks:
       - confluent
@@ -40,6 +42,7 @@ services:
 
   zk-3:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container-name: zk-3
     hostname: zk-3
     networks:
       - confluent
@@ -72,6 +75,15 @@ services:
       - confluent
     ports:
       - "3000:3000/tcp"
+
+  tools:
+    image: cnfltraining/training-tools:5.5
+    container_name: tools
+    hostname: tools
+    networks:
+      - confluent
+    entrypoint: /bin/sh
+    tty: true
 
 networks:
   confluent:

@@ -13,7 +13,8 @@ services:
 
   kafka-1:
     image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
-    hostname: kafka-1
+    container-name: kafka-1
+hostname: kafka-1
     networks:
       - confluent
     ports:
@@ -183,12 +184,13 @@ services:
       CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
-  base:
-    image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
-    hostname: base
+  tools:
+    image: cnfltraining/training-tools:5.5
+    container_name: tools
+    hostname: tools
     networks:
       - confluent
-    command: /bin/sh
+    entrypoint: /bin/sh
     tty: true
     environment:
       CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.5.0.jar
