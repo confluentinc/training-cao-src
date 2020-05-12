@@ -2,7 +2,7 @@ version: "3.5"
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    container-name: zookeeper
+    container_name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
@@ -14,7 +14,7 @@ services:
   
   kafka:
     image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
-    container-name: kafka
+    container_name: kafka
     hostname: kafka
     networks:
       - confluent

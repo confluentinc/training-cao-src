@@ -13,7 +13,7 @@ services:
 
   kafka-1:
     image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
-    container-name: kafka-1
+    container_name: kafka-1
 hostname: kafka-1
     networks:
       - confluent

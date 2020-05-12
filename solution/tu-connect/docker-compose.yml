@@ -2,7 +2,7 @@ version: "3.5"
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    container-name: zookeeper
+    container_name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
@@ -14,7 +14,7 @@ services:
   
   kafka:
     image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
-    container-name: kafka
+    container_name: kafka
     hostname: kafka
     networks:
       - confluent
@@ -36,7 +36,7 @@ services:
 
   schema-registry:
     image: "confluentinc/cp-schema-registry:5.5.0-1-ubi8"
-    container-name: schema-registry
+    container_name: schema-registry
     hostname: schema-registry
     networks:
       - confluent
@@ -49,7 +49,7 @@ services:
 
   ksqldb-server:
     image: "confluentinc/cp-ksqldb-server:5.5.0-1-ubi8"
-    container-name: ksqldb-server
+    container_name: ksqldb-server
     hostname: ksqldb-server
     networks:
       - confluent
@@ -75,7 +75,7 @@ services:
 
   ksqldb-cli:
     image: confluentinc/cp-ksqldb-cli:5.5.0-1-ubi8
-    container-name: ksqldb-cli
+    container_name: ksqldb-cli
     hostname: ksqldb-cli
     networks:
       - confluent
@@ -84,7 +84,7 @@ services:
 
   connect:
     image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
-    container-name: connect
+    container_name: connect
     hostname: connect
     restart: always
     networks:
@@ -117,7 +117,7 @@ services:
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
-    container-name: control-center
+    container_name: control-center
     hostname: control-center
     restart: always
     networks:
@@ -141,7 +141,7 @@ services:
 
   postgres:
     image: postgres:11.2-alpine
-    container-name: postgres
+    container_name: postgres
     hostname: postgres
     networks:
       - confluent

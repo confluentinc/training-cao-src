@@ -2,7 +2,7 @@ version: "3.5"
 services:
   zk-1:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    container-name: zk-2
+    container_name: zk-2
 hostname: zk-1
     networks:
       - confluent
@@ -19,7 +19,7 @@ hostname: zk-1
   
   zk-2:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    container-name: zk-2
+    container_name: zk-2
     hostname: zk-2
     networks:
       - confluent
@@ -36,7 +36,7 @@ hostname: zk-1
   
   zk-3:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    container-name: zk-3
+    container_name: zk-3
     hostname: zk-3
     networks:
       - confluent
@@ -53,7 +53,7 @@ hostname: zk-1
 
   kafka-1:
     image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
-    container-name: kafka-1
+    container_name: kafka-1
     hostname: kafka-1
     networks:
       - confluent
@@ -205,7 +205,7 @@ hostname: zk-1
 
   ksqldb-cli:
     image: confluentinc/cp-ksqldb-cli:5.5.0-1-ubi8
-    container-name: ksqldb-cli
+    container_name: ksqldb-cli
     hostname: ksqldb-cli
     networks:
       - confluent
