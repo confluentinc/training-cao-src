@@ -207,27 +207,5 @@ hostname: zk-1
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
       KSQL_KSQL_SERVER_UI_ENABLED: "false"
 
-  ksqldb-cli:
-    image: confluentinc/cp-ksqldb-cli:5.5.0-1-ubi8
-    container_name: ksqldb-cli
-    hostname: ksqldb-cli
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
-
-  tools:
-    image: cnfltraining/training-tools:5.5
-    container_name: tools
-    hostname: tools
-    networks:
-      - confluent
-    volumes:
-      - ./data:/data
-    entrypoint: /bin/sh
-    tty: true
-    environment:
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.5.0.jar
-
 networks:
   confluent:

@@ -101,10 +101,10 @@ services:
       CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 1
       CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
 
-  tools:
-    image: cnfltraining/training-tools:5.5
-    container_name: tools
-    hostname: tools
+  base:
+    image: confluentinc/base:5.5.0-1-ubi8
+    container_name: base
+    hostname: base
     networks:
       - confluent
     volumes:

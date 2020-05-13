@@ -73,15 +73,6 @@ services:
       KSQL_JMX_PORT: 59998
       KSQL_JMX_HOSTNAME: 127.0.0.1
 
-  ksqldb-cli:
-    image: confluentinc/cp-ksqldb-cli:5.5.0-1-ubi8
-    container_name: ksqldb-cli
-    hostname: ksqldb-cli
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
-
   connect:
     image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
     container_name: connect
@@ -150,15 +141,6 @@ services:
     volumes:
       - ${PWD}/pg-data:/var/lib/postgresql/data
       - ${PWD}/source:/source
-
-  tools:
-    image: cnfltraining/training-tools:5.5
-    container_name: tools
-    hostname: tools
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
 
 networks:
   confluent:

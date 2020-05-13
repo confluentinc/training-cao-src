@@ -214,18 +214,5 @@ hostname: zk-1
     entrypoint: /bin/sh
     tty: true
 
-  tools:
-    image: cnfltraining/training-tools:5.5
-    container_name: tools
-    hostname: tools
-    networks:
-      - confluent
-    volumes:
-      - ./data:/data
-    entrypoint: /bin/sh
-    tty: true
-    environment:
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.5.0.jar
-
 networks:
   confluent:

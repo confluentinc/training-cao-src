@@ -32,14 +32,5 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_LOG4J_OPTS: "-Dlog4j.configuration=file:/logging/log4j.properties"
 
-  tools:
-    image: cnfltraining/training-tools:5.5
-    container_name: tools
-    hostname: tools
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
-
 networks:
   confluent:

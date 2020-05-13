@@ -66,15 +66,6 @@ services:
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
       KSQL_KSQL_SERVER_UI_ENABLED: "false"
 
-  ksqldb-cli:
-    image: confluentinc/cp-ksqldb-cli:5.5.0-1-ubi8
-    container_name: ksqldb-cli
-    hostname: ksqldb-cli
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
-
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
     container_name: control-center
@@ -98,15 +89,6 @@ services:
       CONTROL_CENTER_KSQL_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
-
-  tools:
-    image: cnfltraining/training-tools:5.5
-    container_name: tools
-    hostname: tools
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
 
 networks:
   confluent:

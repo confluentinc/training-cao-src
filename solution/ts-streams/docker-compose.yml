@@ -153,14 +153,6 @@ hostname: kafka-1
     cap_add:
       - NET_ADMIN
 
-  ksqldb-cli:
-    image: confluentinc/cp-ksqldb-cli:5.5.0-1-ubi8
-    hostname: ksqldb-cli
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
-
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
     hostname: control-center
@@ -183,17 +175,6 @@ hostname: kafka-1
       CONTROL_CENTER_KSQL_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
-
-  tools:
-    image: cnfltraining/training-tools:5.5
-    container_name: tools
-    hostname: tools
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
-    environment:
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.5.0.jar
 
 networks:
   confluent:

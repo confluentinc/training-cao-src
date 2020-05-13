@@ -87,14 +87,5 @@ services:
     ports:
       - "8000:8000"
 
-  tools:
-    image: cnfltraining/training-tools:5.5
-    container_name: tools
-    hostname: tools
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
-    
 networks:
   confluent:

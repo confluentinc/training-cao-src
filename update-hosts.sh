@@ -25,7 +25,7 @@ cat << EOF | sudo tee -a /etc/hosts >/dev/null
 127.0.0.1 rest-proxy
 127.0.0.1 ksqldb-server
 127.0.0.1 ksqldb-cli
-127.0.0.1 tools
+127.0.0.1 base
 127.0.0.1 control-center
 127.0.0.1 prometheus
 127.0.0.1 grafana

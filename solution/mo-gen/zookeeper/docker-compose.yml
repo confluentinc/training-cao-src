@@ -76,14 +76,5 @@ hostname: zk-1
     ports:
       - "3000:3000/tcp"
 
-  tools:
-    image: cnfltraining/training-tools:5.5
-    container_name: tools
-    hostname: tools
-    networks:
-      - confluent
-    entrypoint: /bin/sh
-    tty: true
-
 networks:
   confluent:
