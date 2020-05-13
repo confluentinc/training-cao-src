@@ -16,7 +16,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     container_name: kafka
     hostname: kafka
     networks:
@@ -39,7 +39,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.5.0-1-ubi8"
+    image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
     container_name: schema-registry
     hostname: schema-registry
     networks:

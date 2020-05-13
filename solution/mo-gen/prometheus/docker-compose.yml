@@ -16,7 +16,7 @@ services:
       ZOOKEEPER_SYNC_LIMIT: 2
 
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     container_name: kafka
     hostname: kafka
     networks:

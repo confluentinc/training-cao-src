@@ -13,7 +13,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     container_name: kafka
     hostname: kafka
     networks:

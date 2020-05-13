@@ -12,7 +12,7 @@ services:
       - ZOOKEEPER_TICK_TIME=2000
 
   kafka-1:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     container_name: kafka-1
 hostname: kafka-1
     networks:
@@ -35,7 +35,7 @@ hostname: kafka-1
       - NET_ADMIN
 
   kafka-2:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     hostname: kafka-2
     networks:
       - confluent
@@ -57,7 +57,7 @@ hostname: kafka-1
       - NET_ADMIN
 
   kafka-3:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     hostname: kafka-3
     networks:
       - confluent
@@ -79,7 +79,7 @@ hostname: kafka-1
       - NET_ADMIN
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.5.0-1-ubi8"
+    image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
     hostname: schema-registry
     networks:
       - confluent
@@ -127,7 +127,7 @@ hostname: kafka-1
       CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
 
   ksqldb-server:
-    image: "confluentinc/cp-ksqldb-server:5.5.0-1-ubi8"
+    image: confluentinc/cp-ksqldb-server:5.5.0-1-ubi8
     hostname: ksqldb-server
     networks:
       - confluent

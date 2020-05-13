@@ -13,7 +13,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka-1:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     container_name: kafka-1
     hostname: kafka-1
     networks:
@@ -36,7 +36,7 @@ services:
       - NET_ADMIN
 
   kafka-2:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     container_name: kafka-2
     hostname: kafka-2
     networks:
@@ -59,7 +59,7 @@ services:
       - NET_ADMIN
 
   kafka-3:
-    image: "confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     container_name: kafka-3
     hostname: kafka-3
     networks:
@@ -102,7 +102,7 @@ services:
       CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
 
   base:
-    image: confluentinc/base:5.5.0-1-ubi8
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     container_name: base
     hostname: base
     networks:
