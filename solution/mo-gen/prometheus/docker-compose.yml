@@ -1,31 +1,32 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container_name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
     ports:
-      - 2181:2181
+      - "2181:2181"
     environment:
-      - ZOOKEEPER_SERVER_ID=1
-      - ZOOKEEPER_CLIENT_PORT=2181
-      - ZOOKEEPER_TICK_TIME=2000
-      - ZOOKEEPER_INIT_LIMIT=5
-      - ZOOKEEPER_SYNC_LIMIT=2
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
 
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
-    hostname: kafka
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka
     hostname: kafka
     networks:
       - confluent
+    ports:
+      - "9092:9092"
+      - "7071:7071"
+      - "9999:9999"
     volumes:
       - ./agents:/agents
-    ports:
-      - 9092:9092
-      - 7071:7071
-      - 9999:9999
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -35,31 +36,34 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_JMX_PORT: 9999
       KAFKA_JMX_HOSTNAME: 127.0.0.1
-      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.10.jar=7071:/agents/kafka.yml"
+      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.12.0.jar=7071:/agents/kafka.yml"
 
   prometheus:
-    image: prom/prometheus:v2.5.0
+    image: prom/prometheus:v2.17.0
+    container_name: prometheus
+    container_name: prometheus
     hostname: prometheus
     networks:
       - confluent
     ports:
-      - 9090:9090/tcp
+      - "9090:9090/tcp"
     volumes:
       - ./prometheus:/etc/prometheus
 
   grafana:
-    image: grafana/grafana:6.0.0
+    image: grafana/grafana:6.7.2
     networks:
       - confluent
     ports:
-      - 3000:3000/tcp
+      - "3000:3000/tcp"
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/var/lib/grafana/dashboards
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.2
+    image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    container_name: control-center
     hostname: control-center
     restart: always
     networks:
@@ -68,7 +72,7 @@ services:
       - "9021:9021"
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: kafka:9092
-      CONTROL_CENTER_ZOOKEEPER_CONNECT: zookeeper:2181
+      CONTROL_CENTER_KAFKA_CAO_BOOTSTRAP_SERVERS: kafka:9092
       CONTROL_CENTER_REPLICATION_FACTOR: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION: 1
       CONTROL_CENTER_INTERNAL_TOPICS_REPLICATION: 1
@@ -77,17 +81,9 @@ services:
       CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 1
       CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
       CONTROL_CENTER_CONNECT_CLUSTER: "connect:8083"
-      CONTROL_CENTER_KSQL_URL: "http://ksql-server:8088"
+      CONTROL_CENTER_KSQL_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
-
-  base:
-    image: confluentinc/cp-kafka-connect:5.1.2
-    hostname: base
-    entrypoint: /bin/sh
-    tty: true
-    networks:
-      - confluent
 
 volumes:
   grafana-storage:

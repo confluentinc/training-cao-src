@@ -1,23 +1,34 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container_name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
+    ports:
+      - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka-1:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka-1
     hostname: kafka-1
     networks:
       - confluent
+    volumes:
+      - ./config:/config
+    ports:
+      - "19092:19092"
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092
+      KAFKA_LISTENERS: DOCKER://kafka-1:9092,HOST://kafka-1:19092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-1:9092,HOST://localhost:19092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
@@ -27,14 +38,22 @@ services:
       - NET_ADMIN
 
   kafka-2:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka-2
     hostname: kafka-2
     networks:
       - confluent
+    volumes:
+      - ./config:/config
+    ports:
+      - "29092:29092"
     environment:
       KAFKA_BROKER_ID: 102
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:9092
+      KAFKA_LISTENERS: DOCKER://kafka-2:9092,HOST://kafka-2:29092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-2:9092,HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
@@ -44,14 +63,22 @@ services:
       - NET_ADMIN
 
   kafka-3:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka-3
     hostname: kafka-3
     networks:
       - confluent
+    volumes:
+      - ./config:/config
+    ports:
+      - "39092:39092"
     environment:
       KAFKA_BROKER_ID: 103
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:9092
+      KAFKA_LISTENERS: DOCKER://kafka-3:9092,HOST://kafka-3:39092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-3:9092,HOST://localhost:39092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
@@ -61,17 +88,21 @@ services:
       - NET_ADMIN
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.1.2"
+    image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
+    container_name: schema-registry
     hostname: schema-registry
     networks:
       - confluent
+    ports:
+      - "8081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'kafka-1:9092,kafka-2:9092,kafka-3:9092'
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.2
+    image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    container_name: control-center
     hostname: control-center
     restart: always
     networks:
@@ -80,7 +111,7 @@ services:
       - "9021:9021"
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
-      CONTROL_CENTER_ZOOKEEPER_CONNECT: zookeeper:2181
+      CONTROL_CENTER_KAFKA_CAO_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
       CONTROL_CENTER_REPLICATION_FACTOR: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION: 1
       CONTROL_CENTER_INTERNAL_TOPICS_REPLICATION: 1

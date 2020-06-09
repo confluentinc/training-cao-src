@@ -1,128 +1,149 @@
 version: "3.5"
 services:
-  zk1:
-    image: confluentinc/cp-zookeeper:5.1.2
-    hostname: zk1
+  zk-1:
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container_name: zk-1
+    hostname: zk-1
     networks:
       - confluent
     ports:
-      - 7071:7071
+      - "12181:12181"
+      - "7071:7071"
     volumes:
       - ./agent:/agent
     environment:
       ZOOKEEPER_SERVER_ID: 1
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_INIT_LIMIT: 5
-      ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zk1:2888:3888;zk2:2888:3888;zk3:2888:3888
-      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
+      ZOOKEEPER_CLIENT_PORT: "12181"
+      ZOOKEEPER_TICK_TIME: "2000"
+      ZOOKEEPER_INIT_LIMIT: "5"
+      ZOOKEEPER_SYNC_LIMIT: "2"
+      ZOOKEEPER_SERVERS: "zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888"
+      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/agent/zk-kafka.yaml"
 
-  zk2:
-    image: confluentinc/cp-zookeeper:5.1.2
-    hostname: zk2
+  zk-2:
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container_name: zk-2
+    hostname: zk-2
     networks:
       - confluent
     ports:
-      - 7072:7071
+      - "22181:22181"
+      - "7072:7071"
     volumes:
       - ./agent:/agent
     environment:
       ZOOKEEPER_SERVER_ID: 2
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_INIT_LIMIT: 5
-      ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zk1:2888:3888;zk2:2888:3888;zk3:2888:3888
-      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
+      ZOOKEEPER_CLIENT_PORT: "22181"
+      ZOOKEEPER_TICK_TIME: "2000"
+      ZOOKEEPER_INIT_LIMIT: "5"
+      ZOOKEEPER_SYNC_LIMIT: "2"
+      ZOOKEEPER_SERVERS: "zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888"
+      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/agent/zk-kafka.yaml"
 
-  zk3:
-    image: confluentinc/cp-zookeeper:5.1.2
-    hostname: zk3
+  zk-3:
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container_name: zk-3
+    hostname: zk-3
     networks:
       - confluent
     ports:
-      - 7073:7071
+      - "32181:32181"
+      - "7073:7071"
     volumes:
       - ./agent:/agent
     environment:
       ZOOKEEPER_SERVER_ID: 3
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_INIT_LIMIT: 5
-      ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zk1:2888:3888;zk2:2888:3888;zk3:2888:3888
-      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
+      ZOOKEEPER_CLIENT_PORT: "32181"
+      ZOOKEEPER_TICK_TIME: "2000"
+      ZOOKEEPER_INIT_LIMIT: "5"
+      ZOOKEEPER_SYNC_LIMIT: "2"
+      ZOOKEEPER_SERVERS: "zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888"
+      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/agent/zk-kafka.yaml"
 
-  kafka1:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
-    hostname: kafka1
+  kafka-1:
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka-1
+    hostname: kafka-1
     networks:
       - confluent
     ports:
-      - 7171:7071
+      - "19092:19092"
+      - "7171:7071"
     volumes:
       - ./agent:/agent
     environment:
       KAFKA_BROKER_ID: 101
-      KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092
+      KAFKA_ZOOKEEPER_CONNECT: zk-1:12181,zk-2:22181,zk-3:32181
+      KAFKA_LISTENERS: DOCKER://kafka-1:9092,HOST://kafka-1:19092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-1:9092,HOST://localhost:19092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
-      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
+      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/agent/zk-kafka.yaml"
 
-  kafka2:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
-    hostname: kafka2
+  kafka-2:
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka-2
+    hostname: kafka-2
     networks:
       - confluent
     ports:
-      - 7172:7071
+      - "29092:29092"
+      - "7172:7071"
     volumes:
       - ./agent:/agent
     environment:
       KAFKA_BROKER_ID: 102
-      KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9092
+      KAFKA_ZOOKEEPER_CONNECT: zk-1:12181,zk-2:22181,zk-3:32181
+      KAFKA_LISTENERS: DOCKER://kafka-2:9092,HOST://kafka-2:29092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-2:9092,HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
-      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
+      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/agent/zk-kafka.yaml"
 
-  kafka3:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
-    hostname: kafka3
+  kafka-3:
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka-3
+    hostname: kafka-3
     networks:
       - confluent
     ports:
-      - 7173:7071
+      - "39092:39092"
+      - "7173:7071"
     volumes:
       - ./agent:/agent
     environment:
       KAFKA_BROKER_ID: 103
-      KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka3:9092
+      KAFKA_ZOOKEEPER_CONNECT: zk-1:12181,zk-2:22181,zk-3:32181
+      KAFKA_LISTENERS: DOCKER://kafka-3:9092,HOST://kafka-3:39092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-3:9092,HOST://localhost:39092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
-      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.3.1.jar=7071:/agent/zk-kafka.yaml"
+      KAFKA_OPTS: "-javaagent:/agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/agent/zk-kafka.yaml"
 
   prometheus:
-    image: prom/prometheus:v2.5.0
+    image: prom/prometheus:v2.17.0
     networks:
       - confluent
     ports:
-      - 9090:9090/tcp
+      - "9090:9090/tcp"
     volumes:
       - ./prometheus:/etc/prometheus
 
   grafana:
-    image: grafana/grafana:3.0.1
+    image: grafana/grafana:6.7.2
     networks:
       - confluent
     ports:
-      - 3000:3000/tcp
+      - "3000:3000/tcp"
 
 networks:
   confluent:

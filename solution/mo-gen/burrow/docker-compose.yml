@@ -1,12 +1,14 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.2
+    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container_name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
     ports:
-      - 39999:39999
+      - "2181:2181"
+      - "39999:39999"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -14,12 +16,14 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
   
   kafka:
-    image: "confluentinc/cp-enterprise-kafka:5.1.2"
+    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka
     hostname: kafka
     networks:
       - confluent
     ports:
-      - 49999:49999
+      - "9092:9092"
+      - "49999:49999"
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -35,21 +39,24 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   schema-registry:
-    image: "confluentinc/cp-schema-registry:5.1.2"
+    image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
+    container_name: schema-registry
     hostname: schema-registry
     networks:
       - confluent
     ports:
-      - 59999:59999
+      - "8081:8081"
+      - "59999:59999"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'kafka:9092'
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
       SCHEMA_REGISTRY_JMX_PORT: 59999
       SCHEMA_REGISTRY_JMX_HOSTNAME: 127.0.0.1
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.2
+    image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    container_name: control-center
     hostname: control-center
     restart: always
     networks:
@@ -58,7 +65,7 @@ services:
       - "9021:9021"
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: kafka:9092
-      CONTROL_CENTER_ZOOKEEPER_CONNECT: zookeeper:2181
+      CONTROL_CENTER_KAFKA_CAO_BOOTSTRAP_SERVERS: kafka:9092
       CONTROL_CENTER_REPLICATION_FACTOR: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION: 1
       CONTROL_CENTER_INTERNAL_TOPICS_REPLICATION: 1
@@ -78,7 +85,7 @@ services:
     networks: 
       - confluent
     ports:
-      - 8000:8000
+      - "8000:8000"
 
 networks:
   confluent:

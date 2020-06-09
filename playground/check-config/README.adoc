@@ -1,9 +1,0 @@
-Script to collect system information about storage, network drivers and more
-
-test with:
-
-    $ docker run --rm -it -v ${PWD}:/check-config ubuntu:18.04 bash
-
-inside the container run:
-
-    $ check-config/check-config.sh

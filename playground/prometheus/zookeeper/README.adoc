@@ -1,1 +1,0 @@
-Configuring Zookeeper with the JMX exporter for Prometheus
