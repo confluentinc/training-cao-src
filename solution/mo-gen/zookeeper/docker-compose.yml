@@ -62,6 +62,8 @@ services:
 
   prometheus:
     image: prom/prometheus:v2.17.0
+    container_name: prometheus
+    hostname: prometheus
     networks:
       - confluent
     ports:
@@ -71,6 +73,8 @@ services:
 
   grafana:
     image: grafana/grafana:6.7.2
+    container_name: grafana
+    hostname: grafana
     networks:
       - confluent
     ports:

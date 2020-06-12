@@ -34,6 +34,7 @@ services:
 
   connect:
     image: cnfldemos/cp-server-connect-datagen:0.3.2-5.5.0
+    container_name: connect
     hostname: connect
     depends_on:
       - zookeeper
@@ -71,6 +72,8 @@ services:
 
   streams-app-1:
     image: streams-app:latest
+    container_name: streams-app-1
+    hostname: streams-app-1
     build: streams-sample
     restart: always
     networks:
@@ -85,6 +88,8 @@ services:
 
   streams-app-2:
     image: streams-app:latest
+    container_name: streams-app-2
+    hostname: streams-app-2
     build: streams-sample
     restart: always
     networks:

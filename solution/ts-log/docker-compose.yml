@@ -122,6 +122,8 @@ services:
 
   schema-registry:
     image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
+    container-name: schema-registry
+    hostname: schema-registry
     networks:
       - confluent
     ports:
