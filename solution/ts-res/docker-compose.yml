@@ -133,6 +133,8 @@ services:
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    container-name: control-center
+    hostname: control-center
     restart: always
     networks:
       - confluent
@@ -152,6 +154,8 @@ services:
 
   connect:
     image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
+    container-name: connect
+    hostname: connect
     restart: always
     volumes:
       - ./data:/data
@@ -186,6 +190,8 @@ services:
 
   ksqldb-server:
     image: confluentinc/cp-ksqldb-server:5.5.0-1-ubi8
+    container_name: ksqldb-server
+    hostname: ksqldb-server
     networks:
       - confluent
     ports:

@@ -99,6 +99,8 @@ services:
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    container-name: control-center
+    hostname: control-center
     restart: always
     networks:
       - confluent
