@@ -128,6 +128,7 @@ hostname: kafka-1
 
   ksqldb-server:
     image: confluentinc/cp-ksqldb-server:5.5.0-1-ubi8
+    container_name: ksqldb-server
     hostname: ksqldb-server
     networks:
       - confluent
