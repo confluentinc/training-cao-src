@@ -12,18 +12,18 @@ class Program
         { 
             GroupId = "test-consumer-group",
             BootstrapServers = "kafka:9092",
-            AutoOffsetReset = AutoOffsetResetType.Earliest,
+            AutoOffsetReset = AutoOffsetReset.Earliest,
             PluginLibraryPaths = "monitoring-interceptor"
         };
 
-        using (var c = new Consumer<Ignore, string>(conf))
-        {
-            c.Subscribe(topicName);
-
-            bool consuming = true;
+        bool consuming = true;
+        using (var c = new ConsumerBuilder<string, string>(conf)
             // The client will automatically recover from non-fatal errors. You typically
             // don't need to take any action unless an error is marked as fatal.
-            c.OnError += (_, e) => consuming = !e.IsFatal;
+        .SetErrorHandler((_, e) => consuming = !e.IsFatal)
+        .Build())
+        {
+            c.Subscribe(topicName);
 
             while (consuming)
             {

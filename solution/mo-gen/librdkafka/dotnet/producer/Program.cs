@@ -21,7 +21,7 @@ namespace app
                 PluginLibraryPaths = "monitoring-interceptor"
             };
 
-            using (var producer = new Producer<string, string>(config))
+            using (var producer = new ProducerBuilder<string, string>(config).Build())
             {
                 var cancelled = false;
                 Console.CancelKeyPress += (_, e) => {
