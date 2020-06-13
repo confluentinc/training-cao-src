@@ -41,7 +41,6 @@ services:
   prometheus:
     image: prom/prometheus:v2.17.0
     container_name: prometheus
-    container_name: prometheus
     hostname: prometheus
     networks:
       - confluent
@@ -52,6 +51,8 @@ services:
 
   grafana:
     image: grafana/grafana:6.7.2
+    container_name: grafana
+    hostname: grafana
     networks:
       - confluent
     ports:
@@ -82,7 +83,7 @@ services:
       CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
       CONTROL_CENTER_CONNECT_CLUSTER: "connect:8083"
       CONTROL_CENTER_KSQL_URL: "http://ksqldb-server:8088"
-      CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
+      CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
 volumes:

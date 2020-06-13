@@ -2,6 +2,7 @@ version: "3.5"
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    container_name: zookeeper
     hostname: zookeeper
     networks:
       - confluent
@@ -14,7 +15,7 @@ services:
   kafka-1:
     image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
     container_name: kafka-1
-hostname: kafka-1
+    hostname: kafka-1
     networks:
       - confluent
     ports:
@@ -23,7 +24,7 @@ hostname: kafka-1
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENERS: DOCKER://kafka-1:9092,HOST://kafka-1:19092
-      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-1:9092,HOST://localhost:19092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-1:9092,HOST://kafka-1:19092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
@@ -36,6 +37,7 @@ hostname: kafka-1
 
   kafka-2:
     image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka-1
     hostname: kafka-2
     networks:
       - confluent
@@ -45,7 +47,7 @@ hostname: kafka-1
       KAFKA_BROKER_ID: 102
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENERS: DOCKER://kafka-2:9092,HOST://kafka-2:29092
-      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-2:9092,HOST://localhost:29092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-2:9092,HOST://kafka-2:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
@@ -58,6 +60,7 @@ hostname: kafka-1
 
   kafka-3:
     image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    container_name: kafka-3
     hostname: kafka-3
     networks:
       - confluent
@@ -67,7 +70,7 @@ hostname: kafka-1
       KAFKA_BROKER_ID: 103
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENERS: DOCKER://kafka-3:9092,HOST://kafka-3:39092
-      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-3:9092,HOST://localhost:39092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka-3:9092,HOST://kafka-3:39092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
@@ -80,6 +83,7 @@ hostname: kafka-1
 
   schema-registry:
     image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
+    container-name: schema-registry
     hostname: schema-registry
     networks:
       - confluent
@@ -92,6 +96,7 @@ hostname: kafka-1
 
   connect:
     image: cnfldemos/cp-server-connect-datagen:0.3.2-5.5.0
+    container-name: connect
     hostname: connect
     depends_on:
       - zookeeper
@@ -156,6 +161,7 @@ hostname: kafka-1
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    container-name: control-center
     hostname: control-center
     restart: always
     networks:
@@ -174,7 +180,7 @@ hostname: kafka-1
       CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
       CONTROL_CENTER_CONNECT_CLUSTER: "connect:8083"
       CONTROL_CENTER_KSQL_URL: "http://ksqldb-server:8088"
-      CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
+      CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
 networks:
