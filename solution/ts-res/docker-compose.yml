@@ -122,7 +122,7 @@ services:
 
   schema-registry:
     image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
-    container-name: schema-registry
+    container_name: schema-registry
     hostname: schema-registry
     networks:
       - confluent
@@ -135,7 +135,7 @@ services:
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
-    container-name: control-center
+    container_name: control-center
     hostname: control-center
     restart: always
     networks:
@@ -156,7 +156,7 @@ services:
 
   connect:
     image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
-    container-name: connect
+    container_name: connect
     hostname: connect
     restart: always
     volumes:
