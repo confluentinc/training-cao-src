@@ -83,7 +83,7 @@ services:
 
   schema-registry:
     image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
-    container-name: schema-registry
+    container_name: schema-registry
     hostname: schema-registry
     networks:
       - confluent
@@ -96,7 +96,7 @@ services:
 
   connect:
     image: cnfldemos/cp-server-connect-datagen:0.3.2-5.5.0
-    container-name: connect
+    container_name: connect
     hostname: connect
     depends_on:
       - zookeeper
@@ -161,7 +161,7 @@ services:
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
-    container-name: control-center
+    container_name: control-center
     hostname: control-center
     restart: always
     networks:

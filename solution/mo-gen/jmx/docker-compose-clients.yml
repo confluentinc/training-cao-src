@@ -2,7 +2,7 @@ version: "3.5"
 services:
   producer:
     image: cnfltraining/jmx-producer:1.0
-    container-name: producer
+    container_name: producer
     hostname: producer
     build: producer
     networks:
@@ -11,7 +11,7 @@ services:
       - "4444:4444"
   consumer:
     image: cnfltraining/jmx-consumer:1.0
-    container-name: consumer
+    container_name: consumer
     hostname: consumer
     build: consumer
     networks:

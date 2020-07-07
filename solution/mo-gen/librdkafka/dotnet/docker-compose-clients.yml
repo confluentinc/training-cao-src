@@ -2,14 +2,14 @@ version: "3.5"
 services:
   producer:
     image: cnfltraining/test-producer-net:1.0
-    container-name: producer
+    container_name: producer
     hostname: producer
     build: producer
     networks:
     - confluent
   consumer:
     image: cnfltraining/test-consumer-net:1.0
-    container-name: consumer
+    container_name: consumer
     hostname: consumer
     build: consumer
     networks:
