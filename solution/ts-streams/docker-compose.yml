@@ -37,7 +37,7 @@ services:
 
   kafka-2:
     image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
-    container_name: kafka-1
+    container_name: kafka-2
     hostname: kafka-2
     networks:
       - confluent
