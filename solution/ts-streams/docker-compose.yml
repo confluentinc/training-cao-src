@@ -95,7 +95,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
   connect:
-    image: cnfldemos/cp-server-connect-datagen:0.3.2-5.5.0
+    image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
     container_name: connect
     hostname: connect
     depends_on:
