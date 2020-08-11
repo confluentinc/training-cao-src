@@ -2,6 +2,7 @@ version: "3.5"
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    restart: always
     container_name: zookeeper
     hostname: zookeeper
     networks:
@@ -17,6 +18,7 @@ services:
 
   kafka:
     image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    restart: always
     container_name: kafka
     hostname: kafka
     networks:
@@ -40,6 +42,7 @@ services:
 
   prometheus:
     image: prom/prometheus:v2.17.0
+    restart: always
     container_name: prometheus
     hostname: prometheus
     networks:
@@ -51,6 +54,7 @@ services:
 
   grafana:
     image: grafana/grafana:6.7.2
+    restart: always
     container_name: grafana
     hostname: grafana
     networks:
