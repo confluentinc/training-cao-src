@@ -4,14 +4,14 @@ if [ "$HOSTNAME" = tools ]; then
   exit 1
 fi
 
-if grep "CAO 5.5.0-v1.0.0 host entries" /etc/hosts >/dev/null; then
+if grep "CAO host entries" /etc/hosts >/dev/null; then
   echo "Already done!"
   exit 0
 fi
 
 cat << EOF | sudo tee -a /etc/hosts >/dev/null
 
-# CAO 5.5.0-v1.0.0 host entries
+# CAO host entries
 127.0.0.1 zookeeper
 127.0.0.1 zk-1
 127.0.0.1 zk-2
