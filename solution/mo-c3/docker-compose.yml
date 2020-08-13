@@ -2,6 +2,7 @@ version: "3.5"
 services:
   zk-1:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    restart: always
     container_name: zk-1
     hostname: zk-1
     networks:
@@ -19,6 +20,7 @@ services:
   
   zk-2:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    restart: always
     container_name: zk-2
     hostname: zk-2
     networks:
@@ -36,6 +38,7 @@ services:
   
   zk-3:
     image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
+    restart: always
     container_name: zk-3
     hostname: zk-3
     networks:
@@ -53,6 +56,7 @@ services:
 
   kafka-1:
     image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    restart: always
     container_name: kafka-1
     hostname: kafka-1
     networks:
@@ -76,6 +80,7 @@ services:
 
   kafka-2:
     image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    restart: always
     container_name: kafka-2
     hostname: kafka-2
     networks:
@@ -99,6 +104,7 @@ services:
 
   kafka-3:
     image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
+    restart: always
     container_name: kafka-3
     hostname: kafka-3
     networks:
@@ -122,6 +128,7 @@ services:
 
   schema-registry:
     image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
+    restart: always
     container_name: schema-registry
     hostname: schema-registry
     networks:
@@ -192,6 +199,7 @@ services:
 
   ksqldb-server:
     image: confluentinc/cp-ksqldb-server:5.5.0-1-ubi8
+    restart: always
     container_name: ksqldb-server
     hostname: ksqldb-server
     networks:
