@@ -3,7 +3,7 @@
     "type": "record",
     "name": "KsqlDataSourceSchema",
     "fields": [
-        {"name": "CREDIT_CARD_TKN", "type": "string"},
+        {"name": "CREDIT_CARD_NBR", "type": "string"},
         {"name": "ATTEMPTS", "type": "long"}
     ]
 }

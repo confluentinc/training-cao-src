@@ -1,8 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-zookeeper:6.0.0-1-ubi8
     container_name: zookeeper
     hostname: zookeeper
     networks:
@@ -17,8 +16,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
   
   kafka:
-    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-enterprise-kafka:6.0.0-1-ubi8
     container_name: kafka
     hostname: kafka
     networks:
@@ -43,8 +41,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-schema-registry:6.0.0-1-ubi8
     container_name: schema-registry
     hostname: schema-registry
     networks:
@@ -59,8 +56,30 @@ services:
       SCHEMA_REGISTRY_JMX_PORT: 59999
       SCHEMA_REGISTRY_JMX_HOSTNAME: 127.0.0.1
 
+  rest-proxy:
+    image: confluentinc/cp-kafka-rest:6.0.0-1-ubi8
+    container_name: rest-proxy
+    hostname: rest-proxy
+    restart: always
+    networks:
+      - confluent
+    ports:
+      - "8082:8082"
+      - "59996:59996"
+    environment:
+      KAFKA_REST_HOST_NAME: rest-proxy
+      KAFKA_REST_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
+      KAFKA_REST_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      KAFKAREST_JMX_OPTS: "-Dcom.sun.management.jmxremote 
+        -Dcom.sun.management.jmxremote.authenticate=false 
+        -Dcom.sun.management.jmxremote.ssl=false 
+        -Dcom.sun.management.jmxremote.rmi.port=59996
+        -Dcom.sun.management.jmxremote.port=59996
+        -Djava.rmi.server.hostname=127.0.0.1"
+
   connect:
-    image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
+    image: confluentinc/cp-kafka-connect:6.0.0-1-ubi8
     container_name: connect
     hostname: connect
     restart: always
@@ -97,8 +116,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   ksqldb-server:
-    image: confluentinc/cp-ksqldb-server:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-ksqldb-server:6.0.0-1-ubi8
     container_name: ksqldb-server
     hostname: ksqldb-server
     networks:
@@ -122,7 +140,7 @@ services:
       KSQL_JMX_HOSTNAME: 127.0.0.1
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    image: confluentinc/cp-enterprise-control-center:6.0.0-1-ubi8
     container_name: control-center
     hostname: control-center
     restart: always

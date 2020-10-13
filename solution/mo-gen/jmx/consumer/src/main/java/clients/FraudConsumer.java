@@ -39,7 +39,7 @@ public class FraudConsumer
             while (true) {
                 ConsumerRecords<String, KsqlDataSourceSchema> records = consumer.poll(Duration.ofMillis(100));
                 for (ConsumerRecord<String, KsqlDataSourceSchema> record : records) {
-                    System.out.printf("%s: %s \n", record.value().getCREDITCARDTKN(), record.value().getATTEMPTS());
+                    System.out.printf("%s: %s \n", record.value().getCREDITCARDNBR(), record.value().getATTEMPTS());
                 }
             }
         } finally {

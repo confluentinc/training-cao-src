@@ -1,8 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-zookeeper:6.0.0-1-ubi8
     container_name: zookeeper
     hostname: zookeeper
     networks:
@@ -14,8 +13,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
   
   kafka:
-    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-enterprise-kafka:6.0.0-1-ubi8
     container_name: kafka
     hostname: kafka
     networks:
@@ -38,8 +36,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-schema-registry:6.0.0-1-ubi8
     container_name: schema-registry
     hostname: schema-registry
     networks:
@@ -52,8 +49,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
   connect:
-    image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
-    restart: always
+    image: cnfldemos/cp-server-connect-datagen:0.3.2-6.0.0
     container_name: connect
     hostname: connect
     depends_on:
@@ -83,7 +79,7 @@ services:
       CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
       CONNECT_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       # CLASSPATH required due to CC-2422
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.5.0.jar
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-6.0.0.jar
       CONNECT_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
       CONNECT_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
@@ -91,7 +87,7 @@ services:
       CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    image: confluentinc/cp-enterprise-control-center:6.0.0-1-ubi8
     container_name: control-center
     hostname: control-center
     restart: always

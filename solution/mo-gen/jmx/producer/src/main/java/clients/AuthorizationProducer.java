@@ -48,22 +48,22 @@ public class AuthorizationProducer {
         return _creditCards;
     }
 
-    private AuthorizationValue getAuthorizatioValue(String ccTkn, String status){
+    private AuthorizationValue getAuthorizatioValue(String ccNbr, String status){
         Date date= new Date();
         long probeTime = date.getTime();
-        return new AuthorizationValue(ccTkn, probeTime, status);
+        return new AuthorizationValue(ccNbr, probeTime, status);
     }
 
-    private void publishAuthorization(String ccTkn, String status){
-        String key = ccTkn;
-        AuthorizationValue value = getAuthorizatioValue(ccTkn, status);
+    private void publishAuthorization(String ccNbr, String status){
+        String key = ccNbr;
+        AuthorizationValue value = getAuthorizatioValue(ccNbr, status);
         ProducerRecord<String, Object> record = new ProducerRecord<>(_topicName, key, value);
         _producer.send(record);
     }
 
-    private void publishAuth(String ccTkn, String status, int num, String text) throws InterruptedException{
+    private void publishAuth(String ccNbr, String status, int num, String text) throws InterruptedException{
         for(int i=0; i<num; i++){
-            publishAuthorization(ccTkn, status);
+            publishAuthorization(ccNbr, status);
             TimeUnit.MILLISECONDS.sleep(100);
         }
         System.out.print(text);
@@ -76,16 +76,16 @@ public class AuthorizationProducer {
         while(true){
 
             int index = rand.nextInt(NUMBER_OF_CC);
-            String ccTkn = _creditCards.get(index);
+            String ccNbr = _creditCards.get(index);
             int value = rand.nextInt(10000);
             if(value < 33){
-                publishAuth(ccTkn, "FAILED", 3, "FRAUD");
+                publishAuth(ccNbr, "FAILED", 3, "FRAUD");
             } else if(value < 100){
-                publishAuth(ccTkn, "FAILED", 2, "E");
+                publishAuth(ccNbr, "FAILED", 2, "E");
             } else if(value < 1000){
-                publishAuth(ccTkn, "FAILED", 1, "e");
+                publishAuth(ccNbr, "FAILED", 1, "e");
             } else {
-                publishAuth(ccTkn, "OK", 1, ".");
+                publishAuth(ccNbr, "OK", 1, ".");
             }
             TimeUnit.MILLISECONDS.sleep(10);
         }

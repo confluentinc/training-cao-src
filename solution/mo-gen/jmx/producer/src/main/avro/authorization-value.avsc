@@ -3,7 +3,7 @@
     "type": "record",
     "name": "AuthorizationValue",
     "fields": [
-        {"name": "credit_card_tkn", "type": "string"},
+        {"name": "credit_card_nbr", "type": "string"},
         {"name": "auth_time", "type": "long"},
         {"name": "status", "type": "string"}
     ]

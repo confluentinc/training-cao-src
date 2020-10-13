@@ -1,8 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-zookeeper:6.0.0-1-ubi8
     container_name: zookeeper
     hostname: zookeeper
     networks:
@@ -14,8 +13,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
   
   kafka:
-    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-enterprise-kafka:6.0.0-1-ubi8
     container_name: kafka
     hostname: kafka
     networks:
@@ -37,8 +35,7 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-schema-registry:6.0.0-1-ubi8
     container_name: schema-registry
     hostname: schema-registry
     networks:
@@ -51,8 +48,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
   ksqldb-server:
-    image: confluentinc/cp-ksqldb-server:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-ksqldb-server:6.0.0-1-ubi8
     container_name: ksqldb-server
     hostname: ksqldb-server
     networks:
@@ -78,7 +74,7 @@ services:
       KSQL_JMX_HOSTNAME: 127.0.0.1
 
   connect:
-    image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
+    image: confluentinc/cp-kafka-connect:6.0.0-1-ubi8
     container_name: connect
     hostname: connect
     restart: always
@@ -112,7 +108,7 @@ services:
       CONNECT_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    image: confluentinc/cp-enterprise-control-center:6.0.0-1-ubi8
     container_name: control-center
     hostname: control-center
     restart: always
@@ -137,7 +133,6 @@ services:
 
   postgres:
     image: postgres:11.2-alpine
-    restart: always
     container_name: postgres
     hostname: postgres
     networks:
