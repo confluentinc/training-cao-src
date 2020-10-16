@@ -31,6 +31,9 @@ services:
       KAFKA_LOG_SEGMENT_BYTES: 536870912
       KAFKA_LOG_RETENTION_BYTES: 536870912
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
+      KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka:9092"
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
 
   schema-registry:
     image: confluentinc/cp-schema-registry:6.0.0-1-ubi8
