@@ -165,6 +165,7 @@ services:
       CONTROL_CENTER_CONNECT_CLUSTER: "connect:8083"
       CONTROL_CENTER_KSQL_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://ksqldb-server:8088"
+      CONTROL_CENTER_UI_AUTOUPDATE_ENABLE: "false"
 
   connect:
     image: confluentinc/cp-kafka-connect:6.0.0-1-ubi8
