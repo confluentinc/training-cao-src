@@ -8,6 +8,7 @@ kafka-console-consumer \
     --from-beginning \
     --topic tuning-topic \
     --consumer-property "interceptor.classes=${NS}.MonitoringConsumerInterceptor" \
+    --consumer-property "confluent.monitoring.interceptor.bootstrap.servers=kafka-1:9092" \
     --consumer-property "client.id=custom-settings-consumer" \
     --consumer-property "fetch.max.wait.ms=200" \
     --consumer-property "fetch.min.bytes=16777216"

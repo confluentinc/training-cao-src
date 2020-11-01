@@ -42,6 +42,7 @@ root@base:/# *kafka-avro-console-consumer \
     --consumer-property client.id=consumer-1 \
     --from-beginning \
     --consumer-property interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor \
+    --consumer-property confluent.monitoring.interceptor.bootstrap.servers=kafka-1:9092 \
     --property print.key=true \
     --property schema.registry.url=http://schema-registry:8081 \
     --topic temperatures_topic*

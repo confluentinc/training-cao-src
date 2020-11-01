@@ -1,8 +1,7 @@
 version: "3.5"
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-zookeeper:6.0.0-1-ubi8
     container_name: zookeeper
     hostname: zookeeper
     networks:
@@ -17,8 +16,7 @@ services:
       KAFKA_JMX_HOSTNAME: 127.0.0.1
   
   kafka:
-    image: confluentinc/cp-enterprise-kafka:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-enterprise-kafka:6.0.0-1-ubi8
     container_name: kafka
     hostname: kafka
     networks:
@@ -32,19 +30,21 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
-      CONFLUENT_METRICS_REPORTER_TOPIC_CREATE: "false"
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_RETENTION_HOURS: 1
+      KAFKA_LOG_SEGMENT_BYTES: 536870912
+      KAFKA_LOG_RETENTION_BYTES: 536870912
       KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka:9092"
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
       KAFKA_JMX_PORT: 49999
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-schema-registry:6.0.0-1-ubi8
     container_name: schema-registry
     hostname: schema-registry
     networks:
@@ -60,7 +60,7 @@ services:
       SCHEMA_REGISTRY_JMX_HOSTNAME: 127.0.0.1
 
   connect:
-    image: confluentinc/cp-kafka-connect:5.5.0-1-ubi8
+    image: confluentinc/cp-kafka-connect:6.0.0-1-ubi8
     container_name: connect
     hostname: connect
     restart: always
@@ -91,14 +91,15 @@ services:
       CONNECT_LOG4J_ROOT_LOGLEVEL: INFO
       CONNECT_LOG4J_APPENDER_STDOUT_LAYOUT_CONVERSIONPATTERN: "[%d] %p %X{connector.context}%m (%c:%L)%n"
       CONNECT_LOG4J_LOGGERS: org.reflections=ERROR
-      CONNECT_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
-      CONNECT_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
+      CONNECT_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
+      CONNECT_PRODUCER_CONFLUENT_MONITORING_INTERCEPTOR_BOOTSTRAP_SERVERS: kafka:9092
+      CONNECT_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
+      CONNECT_CONSUMER_CONFLUENT_MONITORING_INTERCEPTOR_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_JMX_PORT: 59997
       KAFKA_JMX_HOSTNAME: 127.0.0.1
 
   ksqldb-server:
-    image: confluentinc/cp-ksqldb-server:5.5.0-1-ubi8
-    restart: always
+    image: confluentinc/cp-ksqldb-server:6.0.0-1-ubi8
     container_name: ksqldb-server
     hostname: ksqldb-server
     networks:
@@ -116,13 +117,15 @@ services:
       KSQL_CACHE_MAX_BYTES_BUFFERING: 0
       KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
+      KSQL_PRODUCER_CONFLUENT_MONITORING_INTERCEPTOR_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
+      KSQL_CONSUMER_CONFLUENT_MONITORING_INTERCEPTOR_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
       KSQL_KSQL_SERVER_UI_ENABLED: "false"
       KSQL_JMX_PORT: 59998
       KSQL_JMX_HOSTNAME: 127.0.0.1
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.5.0-1-ubi8
+    image: confluentinc/cp-enterprise-control-center:6.0.0-1-ubi8
     container_name: control-center
     hostname: control-center
     restart: always
@@ -144,6 +147,7 @@ services:
       CONTROL_CENTER_KSQL_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      CONTROL_CENTER_UI_AUTOUPDATE_ENABLE: "false"
 
 networks:
   confluent:

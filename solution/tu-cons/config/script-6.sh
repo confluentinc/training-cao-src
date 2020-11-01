@@ -8,4 +8,5 @@ kafka-console-consumer \
     --from-beginning \
     --topic test-topic-6 \
     --consumer-property "interceptor.classes=${NS}.MonitoringConsumerInterceptor" \
+    --consumer-property "confluent.monitoring.interceptor.bootstrap.servers=kafka-1:9092" \
     --consumer-property "client.id=consumer-$1"

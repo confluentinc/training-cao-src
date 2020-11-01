@@ -19,9 +19,9 @@ targetCompatibility = 11
 
 dependencies {
     compile group: "org.slf4j", name: "slf4j-log4j12", version: "1.7.30"
-    compile group: "org.apache.kafka", name: "kafka-clients", version: "2.5.0"
-    compile group: "org.apache.kafka", name: "kafka-streams", version: "2.5.0"
-    compile group: "io.confluent", name: "kafka-streams-avro-serde", version: "5.5.0"
-    compile group: 'io.confluent', name: 'kafka-avro-serializer', version: '5.5.0'
-    compile group: 'io.confluent', name: 'kafka-json-serializer', version: '5.5.0'
+    compile group: "org.apache.kafka", name: "kafka-clients", version: "2.6.0"
+    compile group: "org.apache.kafka", name: "kafka-streams", version: "2.6.0"
+    compile group: "io.confluent", name: "kafka-streams-avro-serde", version: "6.0.0"
+    compile group: 'io.confluent', name: 'kafka-avro-serializer', version: '6.0.0'
+    compile group: 'io.confluent', name: 'kafka-json-serializer', version: '6.0.0'
 }
