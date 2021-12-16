@@ -1,12 +1,12 @@
 version: "3.5"
 services:
   producer:
-    image: cnfltraining/test-producer-net:1.0
+    image: cnfltraining/test-producer-net:2.0
     build: producer
     networks:
     - confluent
   consumer:
-    image: cnfltraining/test-consumer-net:1.0
+    image: cnfltraining/test-consumer-net:2.0
     build: consumer
     networks:
     - confluent
