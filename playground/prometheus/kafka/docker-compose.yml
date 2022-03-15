@@ -5,6 +5,8 @@ services:
     hostname: zk
     networks:
       - confluent
+    ports:
+      - 2181:2181
     environment:
       - ZOOKEEPER_SERVER_ID=1
       - ZOOKEEPER_CLIENT_PORT=2181
@@ -23,6 +25,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 9999:9999
+      - 9092:9092
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zk:2181

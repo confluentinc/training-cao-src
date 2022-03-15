@@ -7,6 +7,8 @@ services:
       - confluent
     ports:
       - 7071:7071
+    ports:
+      - 2181:2181
     volumes:
       - ./agent:/agent
     environment:

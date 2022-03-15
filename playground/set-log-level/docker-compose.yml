@@ -7,6 +7,7 @@ services:
       - confluent
     ports:
       - 9999:9999
+      - 2181:2181
     volumes:
       - ./app:/app
     environment:
@@ -22,6 +23,7 @@ services:
       - confluent
     ports:
       - 4444:4444
+      - 9092:9092
     volumes:
       - ./app:/app
     environment:

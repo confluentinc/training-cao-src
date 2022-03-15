@@ -4,6 +4,8 @@ services:
     image: confluentinc/cp-zookeeper:5.1.2
     networks:
       - confluent
+    ports:
+      - 2181:2181
     environment:
       - ZOOKEEPER_SERVER_ID=1
       - ZOOKEEPER_CLIENT_PORT=2181
@@ -41,6 +43,8 @@ services:
     hostname: kafka-1
     networks:
       - confluent
+    ports:
+      - 9092:9092
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: zk-1:2181,zk-2:2181,zk-3:2181
