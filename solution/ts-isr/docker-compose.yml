@@ -71,6 +71,8 @@ services:
     image: "confluentinc/cp-schema-registry:5.1.2"
     networks:
       - confluent
+    ports:
+      - 8081:8081
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181

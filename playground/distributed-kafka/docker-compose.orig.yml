@@ -111,6 +111,8 @@ services:
     hostname: schema-registry
     networks:
       - confluent
+    ports:
+      - 8081:8081
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zk-1:2181,zk-2:2181,zk-3:2181
